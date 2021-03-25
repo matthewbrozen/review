@@ -27,11 +27,38 @@ $('#secure-seal').css('top','-8px');
 $('.complete-checkout').css('height', '90px');
 
 $(window).resize(function() {
+
+   if ($(window).width() > 1025) {
+      $('#tl_popupCL1').css('left', '-30');
+      $('#secure-seal img').css('width','20%');
+      $('#trust-seal img').css('width','20%');  
+      $('.btn-holder').css('width', '45%'); 
+      $('.complete-checkout').css('height', '90px')
+   }
+   
+
+   
 if ($(window).width() < 1025 && $(window).width() > 767) {
-    $('#tl_popupCL1').css('left', '0');
-    $('#secure-seal img').css('width','15%');
-    $('#trust-seal img').css('width','15%');    
- }else  if ($(window).width() < 767){
+   $('.btn-holder').css('width', '45%');  
+
+   $('#tl_popupCL1').css('left', '0');
+   $('#tl_popupCL1').css('bottom', '72px');
+
+   $('.complete-checkout').css('height', '90px');
+
+   $('#trust-seal img').css('width','15%'); 
+   $('#trust-seal').css('position','relative');
+   $('#trust-seal').css('top','-2px');
+   $('#trust-seal').css('left','0');
+
+   $('#secure-seal').css('position','relative');
+   $('#secure-seal').css('top','-8px');
+   $('#secure-seal img').css('width','15%');
+   $('#secure-seal').css('left','0');
+
+ }
+ 
+ if ($(window).width() < 767){
     $('.step-4').css('left', '0');
     $('.complete-checkout').css('height', '150px');
     $('.btn-holder').css('width', '90%');
@@ -47,4 +74,5 @@ if ($(window).width() < 1025 && $(window).width() > 767) {
     $('#trust-seal img').css('width','20%');    
 
  }
+
 });
