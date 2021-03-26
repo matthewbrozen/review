@@ -1,5 +1,5 @@
 //jQuery 3.5 update
-javascript:if(!window.jQuery||confirm('Overwrite\x20current\x20version '+ jQuery.fn.jquery +' with v3.5.1?\x20'))(function(d){s=d.createElement('script');s.src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';(d.head || d.documentElement).appendChild(s)})(document); 
+// javascript:if(!window.jQuery||confirm('Overwrite\x20current\x20version '+ jQuery.fn.jquery +' with v3.5.1?\x20'))(function(d){s=d.createElement('script');s.src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';(d.head || d.documentElement).appendChild(s)})(document); 
 
 
 //hide the form fields to split up into steps
@@ -70,7 +70,7 @@ $('.hs-input[name=email]').change(function(){
 //advance form on click
 $('#next-btn').on('click',  function() {
 
-    //second step from email to name
+    //second step from email to first and last name
     if($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='none' && $('.hs_lastname').css('display')==='none' && $('.hs_company').css('display')==='none' && $('.hs-input[name=email]').val()!='' && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test($('.hs-input[name=email]').val())){
 
 
@@ -97,10 +97,11 @@ $('#next-btn').on('click',  function() {
 
     }
     
-    //third step from company to how can we help
-    if ($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='block' && $('.hs_lastname').css('display')==='block' && $('.hs_company').css('display')==='none' && $('.hs-input[name=lastname]').val()!='' ){
+    //third step from first and last name to company
+    if ($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='block' && $('.hs_lastname').css('display')==='block' && $('.hs_company').css('display')==='none' && $('.hs-input[name=firstname]').val()!=''){
 
-
+        //animate in company field
+        $( ".hs_company" ).slideDown( 300 ).fadeIn( 400 );
 
         //get user input from email input
         var inp = $('.hs-input[name=email]').val()
@@ -127,20 +128,16 @@ $('#next-btn').on('click',  function() {
         element.defaultValue = test[0];
         element.dispatchEvent(ev);
 
-        //animate in company field
-        $( ".hs_company" ).slideDown( 300 ).fadeIn( 400 );
-
         //increment indicator and change button text
         $('#third').css({'background-color':'#4ecdbd','color':'white'});
         $('#next-btn').text('Final Step');
 
         //focus on company input after animation
         setTimeout(function() { $('input[name="company"]').focus() }, 710);
-
-    }
-    
-    //final step to review and submit
-    if ($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='block' && $('.hs_lastname').css('display')==='block' && $('.hs_company').css('display')==='block'){
+            
+    //final step to from company to how can we help review and submit
+    }else if ( $('.hs_company').css('display')==='block' && $( ".hs_how_can_we_help_" ).css('display')==='none'){
+        console
 
         //remove the incremental steps
         $('#next-btn').css('display','none')
