@@ -1,6 +1,8 @@
+//jQuery 3.5 update
 javascript:if(!window.jQuery||confirm('Overwrite\x20current\x20version '+ jQuery.fn.jquery +' with v3.5.1?\x20'))(function(d){s=d.createElement('script');s.src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';(d.head || d.documentElement).appendChild(s)})(document); 
 
 
+//hide the form fields to split up into steps
 $('.hs_firstname').css('display', 'none');
 $('.hs_lastname').css('display', 'none');
 $('.hs_company').css('display', 'none');
@@ -8,112 +10,148 @@ $('.hs_submit').css('display', 'none');
 $('.hs_how_can_we_help_').css('display', 'none');
 
 
-$('.hbspt-form').append(`<span id='first'></span><span id="second"></span><span id="third"></span><span id="forth"></span>`);
+//create current step indicators and set first indicator to on
+$('.hbspt-form').append(`<span id='first' class="indicators">1</span><span id="second" class="indicators">2</span><span id="third" class="indicators">3</span>`);
 
-$('#first').css('height','25px');
-$('#first').css('width','25px');
-$('#first').css('background-color','white');
-$('#first').css('border-radius','50%');
-$('#first').css('border','1px solid black');
-$('#first').css('display','inline-block');
-$('#first').css('margin','1%');
+$('.indicators').css({'height':'50px', 'width':'50px', 'line-height':'45px','text-align':'center', 'background-color':'white', 'border-radius':'50%', 'border':'1px solid black', 'display':'inline-block', 'margin':'1%', 'color':'grey', 'margin-bottom':'20px'});
 
+$('#first').css({'background-color':'#4ecdbd','color':'white'});
 
-$('#second').css('height','25px');
-$('#second').css('width','25px');
-$('#second').css('background-color','white');
-$('#second').css('border-radius','50%');
-$('#second').css('border','1px solid black');
-$('#second').css('display','inline-block');
-$('#second').css('margin','1%');
-
-$('#third').css('height','25px');
-$('#third').css('width','25px');
-$('#third').css('background-color','white');
-$('#third').css('border-radius','50%');
-$('#third').css('border','1px solid black');
-$('#third').css('display','inline-block');
-$('#third').css('margin','1%');
-
-$('#forth').css('height','25px');
-$('#forth').css('width','25px');
-$('#forth').css('background-color','white');
-$('#forth').css('border-radius','50%');
-$('#forth').css('border','1px solid black');
-$('#forth').css('display','inline-block');
-$('#forth').css('margin','1%');
-
-
-
+//create next step button and style
 $('.hbspt-form').append('<div id="next-btn">Next Step</div>')
 
-$('#next-btn').css('height','50px');
-$('#next-btn').css('width','200px');
-$('#next-btn').css('color','white');
-$('#next-btn').css('line-height','50px');
-$('#next-btn').css('background-color','#1e77cc');
-$('#next-btn').css('font-size','15px');
-$('#next-btn').css('border','2px solid #182b52');
-$('#next-btn').css('text-align','center');
+$('#next-btn').css({'height':'50px','width':'200px','color':'white','line-height':'50px','background-color':'#1e77cc','font-size':'15px','border':'2px solid #182b52','text-align':'center','border-radius':'5px'});
 
 
+//prevent enter submit on email
+
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        e.preventDefault();
+        console.log('clicked enter inital')
+        $('.hs_error_rollup').css('display','none').delay(200);
 
 
+    //if the user presses enter and have entered a valid email advance to next step
+    //second step from email to name
+    if($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='none' && $('.hs_lastname').css('display')==='none' && $('.hs_company').css('display')==='none' && $('.hs-input[name=email]').val()!='' && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test($('.hs-input[name=email]').val())){
 
+        //animate in first name and last name and advance indicator
+        $( ".hs_firstname" ).slideDown( 300 ).fadeIn( 400 );
+        $( ".hs_lastname" ).slideDown( 300 ).fadeIn( 400 );
+        $('#second').css({'background-color':'#4ecdbd','color':'white'});
 
+        //focus on first name input after animation
+        setTimeout(function() { $('input[name="firstname"]').focus() }, 710);
+
+    }
+    }
+});
+
+//if the user auto fills from browser email
+$('.hs-input[name=email]').change(function(){
+    
+        //if the user uses the browsers auto complete and have entered a valid email advance to next step
+    //second step from email to name
+    if($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='none' && $('.hs_lastname').css('display')==='none' && $('.hs_company').css('display')==='none' && $('.hs-input[name=email]').val()!='' && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test($('.hs-input[name=email]').val())){
+
+        //animate in first name and last name and advance indicator
+        $( ".hs_firstname" ).slideDown( 300 ).fadeIn( 400 );
+        $( ".hs_lastname" ).slideDown( 300 ).fadeIn( 400 );
+        $('#second').css({'background-color':'#4ecdbd','color':'white'});
+
+        //focus on first name input after animation
+        setTimeout(function() { $('input[name="firstname"]').focus() }, 710);
+
+    }
+
+});
+
+//advance form on click
 $('#next-btn').on('click',  function() {
 
+    //second step from email to name
+    if($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='none' && $('.hs_lastname').css('display')==='none' && $('.hs_company').css('display')==='none' && $('.hs-input[name=email]').val()!='' && /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test($('.hs-input[name=email]').val())){
 
 
+        //prevent enter submit
+        $(document).on('keypress',function(e) {
+            if(e.which == 13) {
+                e.preventDefault();
+                console.log('clicked enter second step')
+                $('.hs_error_rollup').css('display','none').delay(200);
+            }
+        });
 
-    if($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='none' && $('.hs_lastname').css('display')==='none' && $('.hs_company').css('display')==='none' && $('#email-283ee467-7098-4b28-954f-b946bec6f2bc').val()!=''){
-
-
-
-
-
-
-        $( ".hs_email" ).slideUp( 500 ).delay( 600 );
-        $( ".hs_firstname" ).slideDown( 300 ).fadeIn( 400 );
-        $('#first').css('background-color','green');
-
-        
-    }else if ($('.hs_email').css('display')==='none' && $('.hs_firstname').css('display')==='block' && $('.hs_lastname').css('display')==='none' && $('.hs_company').css('display')==='none' && $('#firstname-283ee467-7098-4b28-954f-b946bec6f2bc').val()!=''){
-        $( ".hs_firstname" ).slideUp( 500 ).delay( 600 );
+        //animate in first name and last name and advance indicator
+        $( ".hs_firstname" ).slideDown( 300 ).fadeIn( 400 ).focus();
         $( ".hs_lastname" ).slideDown( 300 ).fadeIn( 400 );
-        $('#second').css('background-color','green');
-    }else if ($('.hs_email').css('display')==='none' && $('.hs_firstname').css('display')==='none' && $('.hs_lastname').css('display')==='block' && $('.hs_company').css('display')==='none' && $('#lastname-283ee467-7098-4b28-954f-b946bec6f2bc').val()!=''){
-        $('#next-btn').css('display','none');
-        $( ".hs_lastname" ).slideUp( 500 ).delay( 600 );
-        $( ".hs_company" ).slideDown( 300 ).fadeIn( 400 );
-        $( ".hs_submit" ).slideDown( 300 ).fadeIn( 400 );
-        $('#first').css('display','none');
-        $('#second').css('display','none');
-        $('#third').css('display','none');
-        $('#forth').css('display','none');
+        $('#second').css({'background-color':'#4ecdbd','color':'white'});
 
-        var inp = $('#email-283ee467-7098-4b28-954f-b946bec6f2bc').val()
+        //focus on first name input after animation
+        setTimeout(function() { $('input[name="firstname"]').focus() }, 710);
 
+
+
+
+
+    }
+    
+    //third step from company to how can we help
+    if ($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='block' && $('.hs_lastname').css('display')==='block' && $('.hs_company').css('display')==='none' && $('.hs-input[name=lastname]').val()!='' ){
+
+
+
+        //get user input from email input
+        var inp = $('.hs-input[name=email]').val()
+
+        //remove everything before the @
         const address = inp.split('@').pop();
         
-        const test = address.split('.');
+        //remove everything after the .
+        const test = address.split('.')
 
-        $("#company-283ee467-7098-4b28-954f-b946bec6f2bc").attr('value', test[0]);
-        $("#company-283ee467-7098-4b28-954f-b946bec6f2bc").attr('placeholder', test[0]);
+        //set the values to the html
+        $(".hs-input[name=company]").attr('value', test[0]);
+        $(".hs-input[name=company]").attr('placeholder', test[0]);
+        $(".hs-input[name=company]").css('text-transform', 'capitalize');
 
-        var element = document.getElementById("company-283ee467-7098-4b28-954f-b946bec6f2bc");
+
+
+   
+        //set the values to the react function, TO DO replace with jQuery .trigger after you what to trigger and how to access the react events on the form
+        var element = $(".hs-input[name=company]")[0];
         var ev = new Event('input', { bubbles: true});
         ev.simulated = true;
         element.value = test[0];
         element.defaultValue = test[0];
         element.dispatchEvent(ev);
 
+        //animate in company field
+        $( ".hs_company" ).slideDown( 300 ).fadeIn( 400 );
 
+        //increment indicator and change button text
+        $('#third').css({'background-color':'#4ecdbd','color':'white'});
+        $('#next-btn').text('Final Step');
 
+        //focus on company input after animation
+        setTimeout(function() { $('input[name="company"]').focus() }, 710);
+
+    }
+    
+    //final step to review and submit
+    if ($('.hs_email').css('display')==='block' && $('.hs_firstname').css('display')==='block' && $('.hs_lastname').css('display')==='block' && $('.hs_company').css('display')==='block'){
+
+        //remove the incremental steps
+        $('#next-btn').css('display','none')
+        $('.indicators').css('display','none');
+        $( ".hs_how_can_we_help_" ).slideDown( 300 ).fadeIn( 400 );
+        $( ".hs_submit" ).slideDown( 300 ).fadeIn( 400 );
+
+        //focus on how can we help input after animation
+        setTimeout(function() { $('input[name="how_can_we_help_"]').focus() }, 710);
     }
 
 
 
 });
-
-
