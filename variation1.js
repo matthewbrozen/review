@@ -1,4 +1,4 @@
-javascript:if(!window.jQuery||confirm('Overwrite\x20current\x20version '+ jQuery.fn.jquery +' with v3.5.1?\x20'))(function(d){s=d.createElement('script');s.src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';(d.head || d.documentElement).appendChild(s)})(document); 
+// javascript:if(!window.jQuery||confirm('Overwrite\x20current\x20version '+ jQuery.fn.jquery +' with v3.5.1?\x20'))(function(d){s=d.createElement('script');s.src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js';(d.head || d.documentElement).appendChild(s)})(document); 
 
 
 //create space for security and trust seals
@@ -31,7 +31,7 @@ $('.complete-checkout').css('height', '90px');
 
 //media queries 
 //1025px to 767 px
-document.querySelector('style').textContent += "@media screen and (max-width:1025px) { #tl_popupCL1{ left: 0!important; bottom:72px!important } }";
+document.querySelector('style').textContent += "@media screen and (max-width:1025px) { #tl_popupCL1{ left: 0!important; bottom:72px!important } .checkout-steps-wrapper{height:290vh!important;}}";
 
 //767px and down
 document.querySelector('style').textContent += "@media screen and (max-width:767px){ .step-4{ left: -18px!important;} .btn-holder{width:90%!important;} #place_order_button{width:100%!important;}.complete-checkout{height:125px!important;} #trust-seal{margin-left:28%!important;}#secure-seal{ margin-left:1%!important;}#secure-seal img{margin-top:10px!important;} #trust-seal img{margin-top:10px!important;} .checkout-steps-wrapper{height:330vh!important;}}";
